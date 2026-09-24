@@ -40,7 +40,8 @@
     var href = a.getAttribute('href');
     if (href !== '#book' && !/#book$/.test(href)) return;
     var label = ctaLabel(a);
-    if (href === '#book' && document.getElementById('lead-form')) {
+    // a link to this same page (e.g. "index.html#book" on index.html) only jumps to the form
+    if (a.pathname === location.pathname && document.getElementById('lead-form')) {
       setCta(label);
     } else {
       try { sessionStorage.setItem(CTA_KEY, JSON.stringify({ label: label, at: Date.now() })); } catch (err) {}
